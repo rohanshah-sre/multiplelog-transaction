@@ -31,7 +31,7 @@ pmdwid=$(mktemp -u XXXXXXXXXXXXXXX)
 
 ### DEVICE #1
 inittime=$(date +"%Y-%m-%d %H:%M:%S.%3N")
-sed "s/INITTIME/$inittime/g; s/DYNATRANSID/$dttransid/g" /home/$(whoami)/multiplelog-transaction/template/01-DEVICE01.xml >> $directory_path/processor-01.log && echo >> $directory_path/processor-01.log
+sed "s/INITTIME/$inittime/g; s/DYNATRANSID/$dttransid/g" /home/$(whoami)/multiplelog-transaction/templates/01-DEVICE01.xml >> $directory_path/processor-01.log && echo >> $directory_path/processor-01.log
 sleep .3
 ### 
 
@@ -40,7 +40,7 @@ sleep .3
 # as each step of the script runs to mimic latency
 # we'll then reference the initial timestamp for the first hop
 dynatime=$(date +"%Y-%m-%d %H:%M:%S.%3N")
-sed "s/DYNATIME/$dynatime/g; s/INITTIME/$inittime/g; s/DYNATRANSID/$dttransid/g; s/PMDWID/$pmdwid/g" /home/$(whoami)/multiplelog-transaction/template/02-DEVICE02.json >> $directory_path/processor-02.log && echo >> $directory_path/processor-02.log
+sed "s/DYNATIME/$dynatime/g; s/INITTIME/$inittime/g; s/DYNATRANSID/$dttransid/g; s/PMDWID/$pmdwid/g" /home/$(whoami)/multiplelog-transaction/templates/02-DEVICE02.json >> $directory_path/processor-02.log && echo >> $directory_path/processor-02.log
 sleep .5
 
 ### DEVICE #3
@@ -48,7 +48,7 @@ sleep .5
 # as each step of the script runs to mimic latency
 # we'll then reference the initial timestamp for the first hop
 dynatime=$(date +"%Y-%m-%d %H:%M:%S.%3N")
-sed "s/DYNATIME/$dynatime/g; s/INITTIME/$inittime/g; s/DYNATRANSID/$dttransid/g" /home/$(whoami)/multiplelog-transaction/template/03-DEVICE03.txt >> $directory_path/processor-03.log && echo >> $directory_path/processor-03.log
+sed "s/DYNATIME/$dynatime/g; s/INITTIME/$inittime/g; s/DYNATRANSID/$dttransid/g" /home/$(whoami)/multiplelog-transaction/templates/03-DEVICE03.txt >> $directory_path/processor-03.log && echo >> $directory_path/processor-03.log
 sleep .5
 
 ### DEVICE #4
@@ -56,7 +56,7 @@ sleep .5
 # as each step of the script runs to mimic latency
 # we'll then reference the initial timestamp for the first hop
 dynatime=$(date +"%Y-%m-%d %H:%M:%S.%3N")
-sed "s/DYNATIME/$dynatime/g; s/INITTIME/$inittime/g; s/DYNATRANSID/$dttransid/g" /home/$(whoami)/multiplelog-transaction/template/04-DEVICE04.txt >> $directory_path/processor-04.log && echo >> $directory_path/processor-04.log
+sed "s/DYNATIME/$dynatime/g; s/INITTIME/$inittime/g; s/DYNATRANSID/$dttransid/g" /home/$(whoami)/multiplelog-transaction/templates/04-DEVICE04.txt >> $directory_path/processor-04.log && echo >> $directory_path/processor-04.log
 sleep .2
 
 
@@ -65,7 +65,7 @@ sleep .2
 # as each step of the script runs to mimic latency
 # we'll then reference the initial timestamp for the first hop
 dynatime=$(date +"%Y-%m-%d %H:%M:%S.%3N")
-sed "s/DYNATIME/$dynatime/g; s/INITTIME/$inittime/g; s/DYNATRANSID/$dttransid/g" /home/$(whoami)/multiplelog-transaction/template/05-DEVICE05.xml >> $directory_path/processor-05.log && echo >> $directory_path/processor-05.log
+sed "s/DYNATIME/$dynatime/g; s/INITTIME/$inittime/g; s/DYNATRANSID/$dttransid/g" /home/$(whoami)/multiplelog-transaction/templates/05-DEVICE05.xml >> $directory_path/processor-05.log && echo >> $directory_path/processor-05.log
 sleep .7
 
 ### DEVICE #6
@@ -73,5 +73,5 @@ sleep .7
 # as each step of the script runs to mimic latency
 # we'll then reference the initial timestamp for the first hop
 dynatime=$(date +"%Y-%m-%d %H:%M:%S.%3N")
-sed "s/DYNATIME/$dynatime/g; s/DYNATRANSID/$dttransid/g; s/PMDWID/$pmdwid/g" /home/$(whoami)/multiplelog-transaction/template/06-DEVICE06.json >> $directory_path/processor-06.log && echo >> $directory_path/processor-06.log
+sed "s/DYNATIME/$dynatime/g; s/DYNATRANSID/$dttransid/g; s/PMDWID/$pmdwid/g" /home/$(whoami)/multiplelog-transaction/templates/06-DEVICE06.json >> $directory_path/processor-06.log && echo >> $directory_path/processor-06.log
 sleep .5
