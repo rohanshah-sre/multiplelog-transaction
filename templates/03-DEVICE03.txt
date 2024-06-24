@@ -1,0 +1,1 @@
+[ DYNATIME ] - INFO,"transaction recieved",valid,DYNATRANSID,device03,starttime: INITTIME, "processor numero 3 is totally processing!"

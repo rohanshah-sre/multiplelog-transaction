@@ -1,0 +1,1 @@
+[ DYNATIME ] - INFO,"transfering to the moon",transactionSpyId007,internalizedTracking#:DYNATRANSID,device04,initationtime: INITTIME, "whoa this still processing?!"
