@@ -97,7 +97,7 @@ The end result will be 6 logs for our "transaction processors" in the `/var/log/
 
 
 
-    The `* * * * *` will execute the script every minute. We'll let let the script run for a few minutes to generate data. While that's running ....
+    The `* * * * *` will execute the script every minute. We'll let let the script run for a few minutes to generate data.
 
 1. upload the `multitple-log-transaction-notebook.json` notebook to you Dynatrace tenant
 
