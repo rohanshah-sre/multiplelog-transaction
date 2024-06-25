@@ -66,8 +66,41 @@ The end result will be 6 logs for our "transaction processors" in the `/var/log/
 ![logs files](img/3.png)
 
 <!-- -------------------------->
-## SETUP: Prerequisites
+## SETUP
 
+
+### Prerequisites
 1. A active Dynatrace SaaS tenant
 1. A linux based virtual machine 
     - if you don't have one, GCP offers a $300 trial credit for new users [Google Cloud](https://cloud.google.com/)
+
+### Setup the scipt
+
+1. Clone the git repo to your home directory
+    ```shell
+    git clone https://github.com/kyledharrington/multiplelog-transaction.git 
+    ```
+1. Modify your user's contab:
+    ```
+    crontab -e
+    ```
+1. Add the script to your crontab: 
+    ```
+    * * * * * /home/$(whoami)/multiplelog-transaction/multi-logs.sh
+    ```
+
+1. Save and quit with:
+    ```
+    :wq!
+    ```
+    ![logs files](img/cron.gif)
+
+
+
+    The `* * * * *` will execute the script every minute. We'll let let the script run for a few minutes to generate data. While that's running ....
+
+1. upload the `multitple-log-transaction-notebook.json` notebook to you Dynatrace tenant
+
+    ![logs files](img/upload.gif)
+
+We will continue the rest of the lab in the `multitple-log-transaction-notebook.json` notebook
