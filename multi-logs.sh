@@ -35,7 +35,7 @@ revenue=${RANDOM:0:2}.${RANDOM:0:2}
 ### DEVICE #1
 inittime=$(date +"%Y-%m-%d %H:%M:%S.%3N")
 sed "s/INITTIME/$inittime/g; s/DYNATRANSID/$dttransid/g" /home/$(whoami)/multiplelog-transaction/templates/01-DEVICE01.xml >> $directory_path/processor-01.log && echo >> $directory_path/processor-01.log
-sleep .${RANDOM:0:1}
+sleep ${RANDOM:0:1}.${RANDOM:0:1}
 ### 
 
 ### DEVICE #2 
@@ -77,4 +77,3 @@ sleep .${RANDOM:0:1}
 # we'll then reference the initial timestamp for the first hop
 dynatime=$(date +"%Y-%m-%d %H:%M:%S.%3N")
 sed "s/DYNATIME/$dynatime/g; s/DYNATRANSID/$dttransid/g; s/PMDWID/$pmdwid/g" /home/$(whoami)/multiplelog-transaction/templates/06-DEVICE06.json >> $directory_path/processor-06.log && echo >> $directory_path/processor-06.log
-sleep ${RANDOM:0:1}.${RANDOM:0:1}
