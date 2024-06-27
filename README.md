@@ -103,4 +103,4 @@ The end result will be 6 logs for our "transaction processors" in the `/var/log/
 
     ![logs files](img/upload.gif)
 
-We will continue the rest of the lab in the `multitple-log-transaction-notebook.json` notebook
+We will continue the rest of the lab in the `lab-multitple-log-transaction-notebook.json` notebook
