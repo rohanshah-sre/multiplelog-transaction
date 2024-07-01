@@ -21,7 +21,7 @@ fi
 
 #### function 2
 # dttransid generate a random trasnaction ID in DATE-DYNATRANSACTION-12345 format
-dttransid=$(date +%Y%m%d)DYNATRANSACTION$RANDOM
+dttransid=$(date +%Y%m%d)DYNATRANSACTION$((RANDOM * RANDOM))
 
 ### the elusive purple monkey dishwasher id!!!
 pmdwid=$(mktemp -u XXXXXXXXXXXXXXX)
@@ -77,3 +77,15 @@ sleep .${RANDOM:0:1}
 # we'll then reference the initial timestamp for the first hop
 dynatime=$(date +"%Y-%m-%d %H:%M:%S.%3N")
 sed "s/DYNATIME/$dynatime/g; s/DYNATRANSID/$dttransid/g; s/PMDWID/$pmdwid/g" /home/$(whoami)/multiplelog-transaction/templates/06-DEVICE06.json >> $directory_path/processor-06.log && echo >> $directory_path/processor-06.log
+
+
+#### DEVICE #01
+### generating errors in the most hacky way possible
+### gernerating a new error id
+dterrorid=$(date +%Y%m%d)DYNATRANSACTION$((RANDOM * RANDOM))
+### checks if new id ends in 0, 2 or 4 creating a ~33% chance of failure 
+if [[ $dterrorid =~ .(0|2|4)$ ]]
+then
+   errortime=$(date +"%Y-%m-%d %H:%M:%S.%3N")
+   sed "s/ERRORTIME/$errortime/g; s/DTERRORID/$dterrorid/g" /home/$(whoami)/multiplelog-transaction/templates/ERROR-DEVICE01.xml >> $directory_path/processor-01.log && echo >> $directory_path/processor-01.log
+fi
