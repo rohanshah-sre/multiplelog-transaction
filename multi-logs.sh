@@ -92,7 +92,7 @@ done
 #### DEVICE #01
 ### generating errors in the most hacky way possible
 ### gernerating a new error id
-errorgen=${RANDOM:0:1}
+errorgen=${RANDOM:0:2}
 ### more better? 
 errorlogs=${RANDOM:0:1}
 ### checks if new id ends in 0, 2 or 4 creating a ~33% chance of failure 
