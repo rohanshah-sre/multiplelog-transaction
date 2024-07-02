@@ -73,6 +73,7 @@ The end result will be 6 logs for our "transaction processors" in the `/var/log/
 1. A active Dynatrace SaaS tenant
 1. A linux based virtual machine 
     - if you don't have one, GCP offers a $300 trial credit for new users [Google Cloud](https://cloud.google.com/)
+1. [Dynatrace OneAgent Installed on the Linux VM](https://docs.dynatrace.com/docs/setup-and-configuration/dynatrace-oneagent/installation-and-operation/linux/installation/install-oneagent-on-linux)
 
 ### Setup the scipt
 
