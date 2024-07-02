@@ -84,7 +84,7 @@ sed "s/DYNATIME/$dynatime/g; s/DYNATRANSID/$dttransid/g; s/PMDWID/$pmdwid/g" /ho
 ### gernerating a new error id
 dterrorid=$(date +%Y%m%d)DYNATRANSACTION$((RANDOM * RANDOM))
 ### checks if new id ends in 0, 2 or 4 creating a ~33% chance of failure 
-if [[ $dterrorid =~ .(0|2|4)$ ]]
+if [[ $dterrorid =~ .(1|3)$ ]]
 then
    errortime=$(date +"%Y-%m-%d %H:%M:%S.%3N")
    sed "s/ERRORTIME/$errortime/g; s/DTERRORID/$dterrorid/g" /home/$(whoami)/multiplelog-transaction/templates/ERROR-DEVICE01.xml >> $directory_path/processor-01.log && echo >> $directory_path/processor-01.log
