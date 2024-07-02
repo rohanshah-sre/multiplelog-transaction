@@ -30,7 +30,7 @@ pmdwid=$(mktemp -u XXXXXXXXXXXXXXX)
 revenue=${RANDOM:0:2}.${RANDOM:0:2}
 
 # info logs
-infologs=${RANDOM:0:2}
+infologs=${RANDOM:0:1}
 for i in $(seq $infologs); do
    # dttransid generate a random trasnaction ID in DATE-DYNATRANSACTION-12345 format
    dttransid=$(date +%Y%m%d)DYNATRANSACTION$((RANDOM * RANDOM))
@@ -94,7 +94,7 @@ done
 ### gernerating a new error id
 errorgen=${RANDOM:0:1}
 ### more better? 
-errorlogs=${RANDOM:0:2}
+errorlogs=${RANDOM:0:1}
 ### checks if new id ends in 0, 2 or 4 creating a ~33% chance of failure 
 if [[ $errorgen =~ .(3|7)$ ]]
 then
