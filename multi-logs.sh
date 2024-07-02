@@ -96,7 +96,7 @@ errorgen=${RANDOM:0:1}
 ### more better? 
 errorlogs=${RANDOM:0:2}
 ### checks if new id ends in 0, 2 or 4 creating a ~33% chance of failure 
-if [[ $errorgen =~ .(1|3)$ ]]
+if [[ $errorgen =~ .(3|7)$ ]]
 then
    for i in $(seq $errorlogs); do
    errortime=$(date +"%Y-%m-%d %H:%M:%S.%3N")
