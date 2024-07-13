@@ -68,6 +68,8 @@ The end result will be 6 logs for our "transaction processors" in the `/var/log/
 <!-- -------------------------->
 ## SETUP
 
+###
+[Video Recording for Setup can be view here](https://dynatrace-my.sharepoint.com/:v:/p/kyle_harrington/EaPhCVPUEohHprzGBsk3NQ8BupqPUs9s1NlbmYp75n29HQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=eqrnx1)
 
 ### Prerequisites
 1. A active Dynatrace SaaS tenant
