@@ -40,7 +40,7 @@ docker run -d \
 -v /opt:/mnt/volume_storage_mount \
 -e ONEAGENT_ENABLE_VOLUME_STORAGE=true \
 -e ONEAGENT_INSTALLER_SCRIPT_URL=$DT_DEPLOYMENT_URL \
--e ONEAGENT_INSTALLER_DOWNLOAD_TOKEN=$DT_PAAS_TOKEN\ 
+-e ONEAGENT_INSTALLER_DOWNLOAD_TOKEN=$DT_PAAS_TOKEN \ 
 dynatrace/oneagent  " >> /tmp/status.log
 
 docker run -d \
