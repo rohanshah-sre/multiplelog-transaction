@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/kubernetes-helm
 {
-  "name": "MultipleLog-in-Codespaces",
+  "name": "Kubernetes-in-Codespaces",
   "dockerFile": "Dockerfile",
   //"name": "Kubernetes - Local Configuration",
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
@@ -41,7 +41,7 @@
 
   // add labels
   "portsAttributes": {
-    "30100": { "label": "MultipleLog User Interface" }
+    "30100": { "label": "traveladvisor User Interface" }
   },
 
   "hostRequirements": {
@@ -59,8 +59,14 @@
     "DT_URL": {
       "description": "eg. https://abc12345.live.dynatrace.com"
     },
-    "DT_PAAS_TOKEN": {
-      "description": "Dynatrace Paas Token"
+    "DT_OPERATOR_TOKEN": {
+      "description": "Dynatrace K8s Operator Token"
+    },
+    "DT_DATAINGEST_TOKEN": {
+      "description": "Dynatrace Data Ingest Token for Metrics"
+    },
+    "DT_LOG_INGEST_TOKEN": {
+      "description": "Dynatrace Data Ingest Token for Logs"
     }
   }
 }
