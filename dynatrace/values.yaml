@@ -19,7 +19,7 @@ config:
     [INPUT]
         Name tail
         Tag kube.*
-        Path /var/log/containers/*.log
+        Path /var/log/multilog/*.*
         DB /fluent-bit/tail/kube.db
         DB.Sync Normal
         multiline.parser cri
@@ -53,7 +53,7 @@ config:
         Name grep
         Match kube.*
         Logical_Op or
-        Regex $kubernetes['namespace_name'] ^boot-camp-app$
+        Regex $kubernetes['namespace_name'] ^log-generator$
     #    Regex $kubernetes['namespace_name'] ^my-namespace-b$
 
     [FILTER]
