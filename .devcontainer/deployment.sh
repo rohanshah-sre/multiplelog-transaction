@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-kubectl create namespace multiplelogs
+kubectl create namespace log-generator
 kubectl create namespace dynatrace
 
 sed -i "s,TENANTURL_TOREPLACE,$DT_URL," /workspaces/$RepositoryName/dynatrace/dynakube.yaml
-sed -i "s,CLUSTER_NAME_TO_REPLACE,multiplelogs,"  /workspaces/$RepositoryName/dynatrace/dynakube.yaml
+sed -i "s,CLUSTER_NAME_TO_REPLACE,log-generator,"  /workspaces/$RepositoryName/dynatrace/dynakube.yaml
 
 clusterName=`kubectl config view --minify -o jsonpath='{.clusters[].name}'`
 sed -i "s,{ENTER_YOUR_CLUSTER_NAME},$clusterName,"  /workspaces/$RepositoryName/dynatrace/values.yaml
@@ -15,7 +15,7 @@ tenantName=`echo $DT_URL | awk -F "[:,.]" '{print $2}' | cut -c3-`
 sed -i "s,{your-environment-id},$tenantName,"  /workspaces/$RepositoryName/dynatrace/values.yaml
 
 # Create secret for k6 to use
-kubectl -n multiplelogs create secret generic dt-details \
+kubectl -n log-generator create secret generic dt-details \
   --from-literal=DT_ENDPOINT=$DT_URL \
   --from-literal=DT_API_TOKEN=$DT_OPERATOR_TOKEN
 
@@ -33,23 +33,23 @@ kubectl apply -f /workspaces/$RepositoryName/dynatrace/kubernetes-csi.yaml
 kubectl -n dynatrace wait pod --for=condition=ready --selector=app.kubernetes.io/name=dynatrace-operator,app.kubernetes.io/component=webhook --timeout=300s
 kubectl -n dynatrace apply -f /workspaces/$RepositoryName/dynatrace/dynakube.yaml
 
-kubectl create secret generic dynatrace-otelcol-dt-api-credentials \
-  --from-literal=DT_ENDPOINT=$DT_URL \
-  --from-literal=DT_API_TOKEN=$DT_DATAINGEST_TOKEN
+#kubectl create secret generic dynatrace-otelcol-dt-api-credentials \
+#  --from-literal=DT_ENDPOINT=$DT_URL \
+#  --from-literal=DT_API_TOKEN=$DT_DATAINGEST_TOKEN
 
-helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts
-helm repo update
-helm upgrade -i dynatrace-collector open-telemetry/opentelemetry-collector -f collector-values.yaml --wait
+#helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts
+#helm repo update
+#helm upgrade -i dynatrace-collector open-telemetry/opentelemetry-collector -f collector-values.yaml --wait
 
 #install fluentbit for log ingestion
 helm repo add fluent https://fluent.github.io/helm-charts
 helm repo update
 helm install fluent-bit fluent/fluent-bit -f /workspaces/$RepositoryName/dynatrace/values.yaml --create-namespace --namespace dynatrace-fluent-bit
 
-kubectl apply -f deployment/deployment.yaml -n multiplelogs
+kubectl apply -f deployment/LogGenerator.yaml -n log-generator
 
 # Wait for Dynatrace to be ready
 kubectl -n dynatrace wait --for=condition=Ready pod --all --timeout=10m
 
 # Wait for travel advisor system to be ready
-kubectl -n multiplelogs wait --for=condition=Ready pod --all --timeout=10m
+kubectl -n log-generator wait --for=condition=Ready pod --all --timeout=10m
