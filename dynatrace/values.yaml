@@ -19,7 +19,7 @@ config:
     [INPUT]
         Name tail
         Tag kube.*
-        Path /var/log/multilog/*.log
+        Path /var/log/containers/*.log
         DB /fluent-bit/tail/kube.db
         DB.Sync Normal
         multiline.parser cri
