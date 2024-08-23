@@ -14,7 +14,7 @@ import java.nio.file.attribute.UserPrincipalLookupService;
 
 public class LogGenerator {
 
-    private static final String DIRECTORY_PATH = "log";
+    private static final String DIRECTORY_PATH = "logs";
     private static final String USER = System.getProperty("user.name");
     private static final String TEMPLATES_PATH = System.getProperty("user.dir") + "/templates/";
 
