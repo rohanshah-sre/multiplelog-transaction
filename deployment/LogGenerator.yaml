@@ -15,4 +15,6 @@ spec:
     spec:
       containers:
       - name: log-generator
-        image: alikingdom/loggeneator:0.4
+        image: alikingdom/loggeneator:0.5
+      env:
+        LOG_SOURCE: "1"

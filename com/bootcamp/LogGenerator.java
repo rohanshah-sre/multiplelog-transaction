@@ -8,18 +8,18 @@ import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.nio.file.attribute.UserPrincipalLookupService;
+//import java.nio.file.attribute.UserPrincipalLookupService;
 
 
 
 public class LogGenerator {
 
-    private static final String DIRECTORY_PATH = "logs";
-    private static final String USER = System.getProperty("user.name");
+    //private static final String DIRECTORY_PATH = "logs";
+    //private static final String USER = System.getProperty("user.name");
     private static final String TEMPLATES_PATH = System.getProperty("user.dir") + "/templates/";
 
     public static void main(String[] args) {
-        createLogDirectory();
+        //createLogDirectory();
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
         Runnable task = () -> {
@@ -35,7 +35,7 @@ public class LogGenerator {
         generateErrorLogs();
     }
 
-    private static void createLogDirectory() {
+    /*private static void createLogDirectory() {
         Path directory = Paths.get(DIRECTORY_PATH);
         if (!Files.exists(directory)) {
             try {
@@ -48,7 +48,7 @@ public class LogGenerator {
             }
         }
     }
-
+    */
     private static void generateInfoLogs() {
         Random random = new Random();
         int infologs = random.nextInt(10);
@@ -109,7 +109,8 @@ public class LogGenerator {
                 content = content.replace("DYNATIME", dynatime[0]);
             }
 
-            Files.write(Paths.get(DIRECTORY_PATH + "/" + logFile), (content + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            System.out.println(content);
+            //Files.write(Paths.get(DIRECTORY_PATH + "/" + logFile), (content + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -120,7 +121,9 @@ public class LogGenerator {
             String content = new String(Files.readAllBytes(Paths.get(TEMPLATES_PATH + templateFile)), StandardCharsets.UTF_8);
             content = content.replace("ERRORTIME", errorTime)
                              .replace("DTERRORID", dterrorid);
-            Files.write(Paths.get(DIRECTORY_PATH + "/" + logFile), (content + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            
+            System.out.println(content);
+            //Files.write(Paths.get(DIRECTORY_PATH + "/" + logFile), (content + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         }
         catch (IOException e) {
             e.printStackTrace();
