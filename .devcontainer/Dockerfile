@@ -39,7 +39,9 @@ USER ${USERNAME}
 # Kubectl autocomplete
 RUN echo 'source <(kubectl completion bash)' >>~/.bashrc
 RUN echo 'source /usr/share/bash-completion/bash_completion' >>~/.bashrc
-RUN echo 'source <(kubectl completion zsh)' >>~/.bashrc
+RUN echo 'source <(kubectl completion zsh)' >>~/.zshrc
+RUN (( ${+commands[kubectl]} )) && alias kubectl='test -z $C_KUBE && C_KUBE=1 && source <(command kubectl completion zsh); command kubectl'
+
 
 ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 CMD [ "sleep", "infinity" ]
