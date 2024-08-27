@@ -39,7 +39,6 @@ USER ${USERNAME}
 # Kubectl autocomplete
 RUN echo 'source <(kubectl completion bash)' >>~/.bashrc
 RUN echo 'source /usr/share/bash-completion/bash_completion' >>~/.bashrc
-RUN source /etc/bash_completion
 
 ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 CMD [ "sleep", "infinity" ]
