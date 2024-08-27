@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/vscode/devcontainers/base:bookworm as kind
+FROM mcr.microsoft.com/vscode/devcontainers/base:which  as kind
 
 ARG USERNAME=vscode
 ARG USER_UID=1000
@@ -20,11 +20,6 @@ RUN apt-get update && \
 RUN curl -sSL -o /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl \
     && chmod +x /usr/local/bin/kubectl
 
-# Kubectl autocomplete
-RUN echo '. <(kubectl completion bash)' >>~/.bashrc
-RUN echo '. /usr/share/bash-completion/bash_completion' >>~/.bashrc
-RUN . /etc/bash_completion
-
 # Install Helm
 RUN curl -s https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash -
 
@@ -40,6 +35,11 @@ RUN chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}
 
 WORKDIR /home/${USERNAME}
 USER ${USERNAME}
+
+# Kubectl autocomplete
+RUN echo 'source <(kubectl completion bash)' >>~/.bashrc
+RUN echo 'source /usr/share/bash-completion/bash_completion' >>~/.bashrc
+RUN source /etc/bash_completion
 
 ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 CMD [ "sleep", "infinity" ]
