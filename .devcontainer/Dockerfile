@@ -21,7 +21,8 @@ RUN curl -sSL -o /usr/local/bin/kubectl https://storage.googleapis.com/kubernete
     && chmod +x /usr/local/bin/kubectl
 
 # Kubectl autocomplete
-RUN source <(kubectl completion bash) >>~/.bashrc
+RUN echo 'source <(kubectl completion bash)' >>~/.bashrc
+RUN echo 'source /usr/share/bash-completion/bash_completion' >>~/.bashrc
 RUN source /etc/bash_completion
 
 # Install Helm
