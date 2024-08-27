@@ -20,6 +20,9 @@ RUN apt-get update && \
 RUN curl -sSL -o /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl \
     && chmod +x /usr/local/bin/kubectl
 
+# Kubectl autocomplete
+RUN echo 'source <(kubectl completion bash)' >>~/.bashrc
+
 # Install Helm
 RUN curl -s https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash -
 
