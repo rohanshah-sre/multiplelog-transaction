@@ -11,7 +11,7 @@ sed -i "s,{ENTER_YOUR_CLUSTER_NAME},$clusterName,"  /workspaces/$RepositoryName/
 sed -i "s,{ENTER_YOUR_INGEST_TOKEN},$DT_LOG_INGEST_TOKEN,"  /workspaces/$RepositoryName/dynatrace/values.yaml
 
 #Extract the tenant name from DT_URL variable
-tenantId=`echo $DT_URL | awk -F "[/]" '{print $1}'`
+tenantId=`echo $DT_URL | awk -F "[/]" '{print $3}'`
 sed -i "s,{ENTER_YOUR_TENANT_ID},$tenantId,"  /workspaces/$RepositoryName/dynatrace/values.yaml
 
 # Create secret for k6 to use
