@@ -22,8 +22,7 @@ config:
         Path /var/log/containers/*.log
         DB /fluent-bit/tail/kube.db
         DB.Sync Normal
-        #multiline.parser cri
-        multiline.parser docker
+        multiline.parser cri
         Mem_Buf_Limit 15MB
         Skip_Long_Lines On
 
@@ -50,11 +49,11 @@ config:
     #    Regex $kubernetes['annotations']['logs.dynatrace.com/ingest'] ^true$
 
     # Only include logs from specific namespaces, remove the whole filter section to get all logs
-    [FILTER]
-        Name grep
-        Match kube.*
-        Logical_Op or
-        Regex $kubernetes['namespace_name'] ^log-generator$
+    #[FILTER]
+    #    Name grep
+    #    Match kube.*
+    #    Logical_Op or
+    #    Regex $kubernetes['namespace_name'] ^my-namespace-a$
     #    Regex $kubernetes['namespace_name'] ^my-namespace-b$
 
     [FILTER]
@@ -123,14 +122,9 @@ config:
         allow_duplicated_headers false
         header Authorization Api-Token ${DT_INGEST_TOKEN}
         header Content-Type application/json; charset=utf-8
-        header Content-Type text/plain; charset=utf-8
         json_date_key timestamp
         json_date_format iso8601
         log_response_payload false
-    
-    [OUTPUT]
-        Name stdout
-        Format json
 
 daemonSetVolumes:
   - hostPath:
