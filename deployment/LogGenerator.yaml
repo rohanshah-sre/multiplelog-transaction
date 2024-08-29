@@ -15,4 +15,9 @@ spec:
     spec:
       containers:
       - name: log-generator
-        image: alikingdom/loggeneator:0.5
+        image: alikingdom/loggeneator:0.6
+        env:
+        - name: DT_URL
+          value: {YOUR_DT_URL}
+        - name: DT_LOG_INGEST_TOKEN
+          value: {YOUR_DT_LOG_INGEST_TOKEN}
