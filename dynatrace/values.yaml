@@ -31,7 +31,7 @@ config:
     [FILTER]
         Name kubernetes
         Match kube.*
-        Merge_Log On
+        Merge_Log Off
         Keep_Log Off
         K8S-Logging.Parser Off
         K8S-Logging.Exclude Off
