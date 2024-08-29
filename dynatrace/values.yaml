@@ -22,7 +22,8 @@ config:
         Path /var/log/containers/*.log
         DB /fluent-bit/tail/kube.db
         DB.Sync Normal
-        multiline.parser cri
+        #multiline.parser cri
+        multiline.parser docker
         Mem_Buf_Limit 15MB
         Skip_Long_Lines On
 
@@ -122,6 +123,7 @@ config:
         allow_duplicated_headers false
         header Authorization Api-Token ${DT_INGEST_TOKEN}
         header Content-Type application/json; charset=utf-8
+        header Content-Type text/plain; charset=utf-8
         json_date_key timestamp
         json_date_format iso8601
         log_response_payload false

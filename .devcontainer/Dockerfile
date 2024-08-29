@@ -12,7 +12,7 @@ RUN chmod +x /tmp/scripts/docker.sh
 # update the container
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install zsh ca-certificates gnupg jq -y && \
+    apt-get install zsh ca-certificates gnupg jq bash-completion -y && \
     apt-get autoremove -y && \
     apt-get clean -y
 
@@ -35,6 +35,9 @@ RUN chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}
 
 WORKDIR /home/${USERNAME}
 USER ${USERNAME}
+
+# Kubectl autocomplete
+RUN echo 'source <(kubectl completion zsh)' >>~/.zshrc
 
 ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 CMD [ "sleep", "infinity" ]
