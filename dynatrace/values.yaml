@@ -22,16 +22,16 @@ config:
         Path /var/log/containers/*.log
         DB /fluent-bit/tail/kube.db
         DB.Sync Normal
-        multiline.parser cri
+        multiline.parser cri, java
         Mem_Buf_Limit 15MB
-        Skip_Long_Lines On
+        Skip_Long_Lines off
 
   filters: |
 
     [FILTER]
         Name kubernetes
         Match kube.*
-        Merge_Log On
+        Merge_Log Off
         Keep_Log Off
         K8S-Logging.Parser Off
         K8S-Logging.Exclude Off
@@ -125,6 +125,7 @@ config:
         json_date_key timestamp
         json_date_format iso8601
         log_response_payload false
+
 
 daemonSetVolumes:
   - hostPath:
