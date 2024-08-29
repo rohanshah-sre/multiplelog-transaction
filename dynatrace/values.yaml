@@ -22,7 +22,7 @@ config:
         Path /var/log/containers/*.log
         DB /fluent-bit/tail/kube.db
         DB.Sync Normal
-        multiline.parser cri
+        multiline.parser cri, java
         Mem_Buf_Limit 15MB
         Skip_Long_Lines off
 
