@@ -141,6 +141,10 @@ public class LogGenerator {
             content = content.replace("ERRORTIME", errorTime)
                              .replace("DTERRORID", dterrorid);
             
+            int lastDotIndex = templateFile.lastIndexOf('.');
+            String type = templateFile.substring(lastDotIndex + 1);
+            System.out.println(content);
+            send2DT(content, type, templateFile);
             //System.out.println(content);
             //Files.write(Paths.get(DIRECTORY_PATH + "/" + logFile), (content + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         }
