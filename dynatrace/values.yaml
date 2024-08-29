@@ -89,8 +89,8 @@ config:
         Match kube.*
 
         # Map data to Dynatrace log format
-        Rename time timestamp
-        Rename log content
+        #Rename time timestamp
+        #Rename log content
 
         Rename kubernetes.host k8s.node.name
         Rename kubernetes.namespace_name k8s.namespace.name
