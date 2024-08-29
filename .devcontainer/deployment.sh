@@ -44,7 +44,7 @@ kubectl -n dynatrace apply -f /workspaces/$RepositoryName/dynatrace/dynakube.yam
 #install fluentbit for log ingestion
 helm repo add fluent https://fluent.github.io/helm-charts
 helm repo update
-helm install fluent-bit fluent/fluent-bit --version  -f /workspaces/$RepositoryName/dynatrace/values.yaml --create-namespace --namespace dynatrace-fluent-bit
+helm install fluent-bit fluent/fluent-bit  -f /workspaces/$RepositoryName/dynatrace/values.yaml --create-namespace --namespace dynatrace-fluent-bit
 
 kubectl apply -f deployment/LogGenerator.yaml -n log-generator
 
