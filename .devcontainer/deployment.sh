@@ -12,7 +12,7 @@ sed -i "s,{ENTER_YOUR_INGEST_TOKEN},$DT_LOG_INGEST_TOKEN,"  /workspaces/$Reposit
 
 #Extract the tenant name from DT_URL variable
 #tenantName=`echo $DT_URL | awk -F "[:,.]" '{print $2}' | cut -c3-`
-sed -i "s,{your-environment-id},$DT_URL,"  /workspaces/$RepositoryName/dynatrace/values.yaml
+sed -i "s,{ENTER_YOUR_TENANT_ID},$DT_URL,"  /workspaces/$RepositoryName/dynatrace/values.yaml
 
 # Create secret for k6 to use
 kubectl -n log-generator create secret generic dt-details \
@@ -22,8 +22,8 @@ kubectl -n log-generator create secret generic dt-details \
 # Deploy Dynatrace
 kubectl -n dynatrace create secret generic dynakube --from-literal="apiToken=$DT_OPERATOR_TOKEN" --from-literal="dataIngestToken=$DT_DATAINGEST_TOKEN"
 
-wget -O /workspaces/$RepositoryName/dynatrace/kubernetes.yaml https://github.com/Dynatrace/dynatrace-operator/releases/download/v0.15.0/kubernetes.yaml
-wget -O /workspaces/$RepositoryName/dynatrace/kubernetes-csi.yaml https://github.com/Dynatrace/dynatrace-operator/releases/download/v0.15.0/kubernetes-csi.yaml
+wget -O /workspaces/$RepositoryName/dynatrace/kubernetes.yaml https://github.com/Dynatrace/dynatrace-operator/releases/latest/download/kubernetes.yaml                                                           
+wget -O /workspaces/$RepositoryName/dynatrace/kubernetes-csi.yaml https://github.com/Dynatrace/dynatrace-operator/releases/latest/download/kubernetes-csi.yaml
 sed -i "s,cpu: 300m,cpu: 100m," /workspaces/$RepositoryName/dynatrace/kubernetes.yaml
 sed -i "s,cpu: 300m,cpu: 100m," /workspaces/$RepositoryName/dynatrace/kubernetes-csi.yaml
 # Shrink resource utilisation to work on GitHub codespaces (ie. a small environment)

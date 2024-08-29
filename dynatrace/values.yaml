@@ -22,7 +22,10 @@ config:
         Path /var/log/containers/*.log
         DB /fluent-bit/tail/kube.db
         DB.Sync Normal
+<<<<<<< HEAD
         #multiline.parser cri
+=======
+>>>>>>> b17acb28eb5b5b58cb3f0bbac1f1a4d383b5fc8b
         multiline.parser docker
         Mem_Buf_Limit 15MB
         Skip_Long_Lines On
@@ -168,7 +171,7 @@ env:
   - name: K8S_CLUSTER_NAME
     value: "{ENTER_YOUR_CLUSTER_NAME}"
   - name: DT_INGEST_HOST
-    value: "{your-environment-id}"
+    value: "{ENTER_YOUR_TENANT_ID}"
   - name: DT_INGEST_TOKEN
     value: "{ENTER_YOUR_INGEST_TOKEN}"
   - name: NODE_IP
