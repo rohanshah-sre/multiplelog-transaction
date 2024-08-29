@@ -8,18 +8,34 @@ import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpResponse.BodyHandlers;
 //import java.nio.file.attribute.UserPrincipalLookupService;
 
 
 
 public class LogGenerator {
-
+    private static String DT_URL = "DT_URL";
+    private static String DT_LOG_INGEST_TOKEN = "DT_LOG_INGEST_TOKEN";
     //private static final String DIRECTORY_PATH = "logs";
     //private static final String USER = System.getProperty("user.name");
     private static final String TEMPLATES_PATH = System.getProperty("user.dir") + "/templates/";
+    private static String dtUrl, logToken;
+    private static HttpClient client;
+    private static String dtUrlEndPoint;
+    private static String authorization;
 
     public static void main(String[] args) {
         //createLogDirectory();
+        dtUrl = System.getenv(DT_URL);
+        dtUrlEndPoint = dtUrl + "/api/v2/logs/ingest";
+        logToken = System.getenv(DT_LOG_INGEST_TOKEN);
+        authorization = "Api-Token " + logToken;
+        client = HttpClient.newHttpClient();
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
         Runnable task = () -> {
@@ -108,8 +124,11 @@ public class LogGenerator {
             if (dynatime.length > 0) {
                 content = content.replace("DYNATIME", dynatime[0]);
             }
-
+            int lastDotIndex = templateFile.lastIndexOf('.');
+            String type = templateFile.substring(lastDotIndex + 1);
             System.out.println(content);
+
+            send2DT(content, type, templateFile);
             //Files.write(Paths.get(DIRECTORY_PATH + "/" + logFile), (content + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
             e.printStackTrace();
@@ -122,10 +141,49 @@ public class LogGenerator {
             content = content.replace("ERRORTIME", errorTime)
                              .replace("DTERRORID", dterrorid);
             
+            int lastDotIndex = templateFile.lastIndexOf('.');
+            String type = templateFile.substring(lastDotIndex + 1);
             System.out.println(content);
+            send2DT(content, type, templateFile);
+            //System.out.println(content);
             //Files.write(Paths.get(DIRECTORY_PATH + "/" + logFile), (content + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         }
         catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void send2DT(String content, String type, String templateFile) {
+        String contentType = "text/plain; charset=utf-8";
+        if ( type == "json") {
+            contentType = "application/json; charset=utf-8";
+        }
+        //String acceptHeader = contentType + "; charset=utf-8";
+        String acceptHeader = "application/json; charset=utf-8";
+        System.out.println(acceptHeader);
+        //                 .header("accept", "application/json; charset=utf-8")
+        System.out.println(contentType);
+        System.out.println(dtUrlEndPoint);
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(dtUrlEndPoint))
+                .header("Accept", acceptHeader)
+                .header("Authorization", authorization)
+                .header("Content-Type", contentType)
+                .POST(BodyPublishers.ofString(content))
+                .build();
+        
+        System.out.println(request.toString());
+
+        try {
+            HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+            // Handle the response
+            if (response.statusCode() == 200 || response.statusCode() == 204)  {
+                System.out.println("Sent " + contentType + " for file " + templateFile + ". Response Code=" + response.statusCode() );
+            } else {
+                System.err.println("Failed to send logs: " + response.body());
+            }
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

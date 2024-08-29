@@ -6,13 +6,15 @@ kubectl create namespace dynatrace
 sed -i "s,TENANTURL_TOREPLACE,$DT_URL," /workspaces/$RepositoryName/dynatrace/dynakube.yaml
 sed -i "s,CLUSTER_NAME_TO_REPLACE,log-generator,"  /workspaces/$RepositoryName/dynatrace/dynakube.yaml
 
-clusterName=`kubectl config view --minify -o jsonpath='{.clusters[].name}'`
-sed -i "s,{ENTER_YOUR_CLUSTER_NAME},$clusterName,"  /workspaces/$RepositoryName/dynatrace/values.yaml
-sed -i "s,{ENTER_YOUR_INGEST_TOKEN},$DT_LOG_INGEST_TOKEN,"  /workspaces/$RepositoryName/dynatrace/values.yaml
+#clusterName=`kubectl config view --minify -o jsonpath='{.clusters[].name}'`
+#sed -i "s,{ENTER_YOUR_CLUSTER_NAME},$clusterName,"  /workspaces/$RepositoryName/dynatrace/values.yaml
+#sed -i "s,{ENTER_YOUR_INGEST_TOKEN},$DT_LOG_INGEST_TOKEN,"  /workspaces/$RepositoryName/dynatrace/values.yaml
 
+sed -i "s,{YOUR_DT_URL},$DT_URL,"  /workspaces/$RepositoryName/deployment/LogGenerator.yaml
+sed -i "s,{YOUR_DT_LOG_INGEST_TOKEN},$DT_LOG_INGEST_TOKEN,"  /workspaces/$RepositoryName/deployment/LogGenerator.yaml
 #Extract the tenant name from DT_URL variable
-tenantName=`echo $DT_URL | awk -F "[:,.]" '{print $2}' | cut -c3-`
-sed -i "s,{your-environment-id},$tenantName,"  /workspaces/$RepositoryName/dynatrace/values.yaml
+#tenantId=`echo $DT_URL | awk -F "[/]" '{print $3}'`
+#sed -i "s,{ENTER_YOUR_TENANT_ID},$tenantId,"  /workspaces/$RepositoryName/dynatrace/values.yaml
 
 # Create secret for k6 to use
 kubectl -n log-generator create secret generic dt-details \
@@ -42,9 +44,9 @@ kubectl -n dynatrace apply -f /workspaces/$RepositoryName/dynatrace/dynakube.yam
 #helm upgrade -i dynatrace-collector open-telemetry/opentelemetry-collector -f collector-values.yaml --wait
 
 #install fluentbit for log ingestion
-helm repo add fluent https://fluent.github.io/helm-charts
-helm repo update
-helm install fluent-bit fluent/fluent-bit -f /workspaces/$RepositoryName/dynatrace/values.yaml --create-namespace --namespace dynatrace-fluent-bit
+#helm repo add fluent https://fluent.github.io/helm-charts
+#helm repo update
+#helm install fluent-bit fluent/fluent-bit  -f /workspaces/$RepositoryName/dynatrace/values.yaml --create-namespace --namespace dynatrace-fluent-bit
 
 kubectl apply -f deployment/LogGenerator.yaml -n log-generator
 

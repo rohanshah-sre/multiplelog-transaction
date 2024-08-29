@@ -22,7 +22,7 @@ config:
         Path /var/log/containers/*.log
         DB /fluent-bit/tail/kube.db
         DB.Sync Normal
-        multiline.parser cri, java
+        multiline.parser cri
         Mem_Buf_Limit 15MB
         Skip_Long_Lines off
 
@@ -49,11 +49,11 @@ config:
     #    Regex $kubernetes['annotations']['logs.dynatrace.com/ingest'] ^true$
 
     # Only include logs from specific namespaces, remove the whole filter section to get all logs
-    [FILTER]
-        Name grep
-        Match kube.*
-        Logical_Op or
-        Regex $kubernetes['namespace_name'] ^log-generator$
+    #[FILTER]
+    #    Name grep
+    #    Match kube.*
+    #    Logical_Op or
+    #    Regex $kubernetes['namespace_name'] ^my-namespace-a$
     #    Regex $kubernetes['namespace_name'] ^my-namespace-b$
 
     # [FILTER]
@@ -126,7 +126,6 @@ config:
         json_date_format iso8601
         log_response_payload false
 
-
 daemonSetVolumes:
   - hostPath:
       path: /var/lib/fluent-bit/
@@ -163,7 +162,7 @@ env:
   - name: K8S_CLUSTER_NAME
     value: "{ENTER_YOUR_CLUSTER_NAME}"
   - name: DT_INGEST_HOST
-    value: "{your-environment-id}.live.dynatrace.com"
+    value: "{ENTER_YOUR_TENANT_ID}"
   - name: DT_INGEST_TOKEN
     value: "{ENTER_YOUR_INGEST_TOKEN}"
   - name: NODE_IP
