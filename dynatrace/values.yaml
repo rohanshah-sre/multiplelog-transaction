@@ -118,7 +118,7 @@ config:
         tls On
         tls.verify On
         uri /api/v2/logs/ingest
-        format json_stream
+        format json
         allow_duplicated_headers false
         header Authorization Api-Token ${DT_INGEST_TOKEN}
         header Content-Type application/json; charset=utf-8
