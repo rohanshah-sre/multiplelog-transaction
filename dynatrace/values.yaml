@@ -168,7 +168,7 @@ env:
   - name: K8S_CLUSTER_NAME
     value: "{ENTER_YOUR_CLUSTER_NAME}"
   - name: DT_INGEST_HOST
-    value: "{your-environment-id}.live.dynatrace.com"
+    value: "{your-environment-id}"
   - name: DT_INGEST_TOKEN
     value: "{ENTER_YOUR_INGEST_TOKEN}"
   - name: NODE_IP

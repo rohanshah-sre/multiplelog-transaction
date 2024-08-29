@@ -11,8 +11,8 @@ sed -i "s,{ENTER_YOUR_CLUSTER_NAME},$clusterName,"  /workspaces/$RepositoryName/
 sed -i "s,{ENTER_YOUR_INGEST_TOKEN},$DT_LOG_INGEST_TOKEN,"  /workspaces/$RepositoryName/dynatrace/values.yaml
 
 #Extract the tenant name from DT_URL variable
-tenantName=`echo $DT_URL | awk -F "[:,.]" '{print $2}' | cut -c3-`
-sed -i "s,{your-environment-id},$tenantName,"  /workspaces/$RepositoryName/dynatrace/values.yaml
+#tenantName=`echo $DT_URL | awk -F "[:,.]" '{print $2}' | cut -c3-`
+sed -i "s,{your-environment-id},$DT_URL,"  /workspaces/$RepositoryName/dynatrace/values.yaml
 
 # Create secret for k6 to use
 kubectl -n log-generator create secret generic dt-details \
@@ -44,7 +44,7 @@ kubectl -n dynatrace apply -f /workspaces/$RepositoryName/dynatrace/dynakube.yam
 #install fluentbit for log ingestion
 helm repo add fluent https://fluent.github.io/helm-charts
 helm repo update
-helm install fluent-bit fluent/fluent-bit -f /workspaces/$RepositoryName/dynatrace/values.yaml --create-namespace --namespace dynatrace-fluent-bit
+helm install fluent-bit fluent/fluent-bit --version  -f /workspaces/$RepositoryName/dynatrace/values.yaml --create-namespace --namespace dynatrace-fluent-bit
 
 kubectl apply -f deployment/LogGenerator.yaml -n log-generator
 
