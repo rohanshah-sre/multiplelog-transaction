@@ -22,9 +22,9 @@ config:
         Path /var/log/containers/*.log
         DB /fluent-bit/tail/kube.db
         DB.Sync Normal
-        multiline.parser docker
+        multiline.parser cri
         Mem_Buf_Limit 15MB
-        Skip_Long_Lines On
+        Skip_Long_Lines off
 
   filters: |
 
