@@ -1,8 +1,3 @@
-[//]: # (id: multitple-log-transaction)
-[//]: # (summary: Multiple Log Transaction Review)
-[//]: # (author: Kyle Harrington)
-[//]: # (last update: 6/25/2024)
-
 # Reviewing Transactions & Common Data Across Multiple Log Files
 <!-- ------------------------ -->
 ## Overview 
@@ -67,6 +62,9 @@ The end result will be 6 logs for our "transaction processors" in the `/var/log/
 
 <!-- -------------------------->
 ## SETUP
+
+![For the codespaces version of this this lab see the codespaces setup](/README.md)
+
 
 ###
 [Video Recording for Setup can be view here](https://dynatrace-my.sharepoint.com/:v:/p/kyle_harrington/EaPhCVPUEohHprzGBsk3NQ8BupqPUs9s1NlbmYp75n29HQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=eqrnx1)

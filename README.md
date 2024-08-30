@@ -113,17 +113,12 @@ You can review the status of the log generation and shipping forom the log-gener
 
     ![operator tokens](img/codespaces/secrets.png)
 
-
-    ![logs files](img/upload.gif)
-
-1
-1. upload the `code-spaces-multitple-log-transaction-notebook.json` notebook to you Dynatrace tenant
-    - this file is in the "assets" folder of this repository
-    - [Click here](/assets/)
+1. upload the `code-spaces-multitple-log-transaction-notebook.json` notebook to your Dynatrace tenant
+    - this file is in the "assets/codespaces" folder of this repository
+    - [Click here](/assets/codespaces/)
 
 
-    ![logs files](img/upload.gif)
+    ![logs files](img/codespaces/upload.gif)
 
-We will continue the rest of the lab in the `code-spaces-multitple-log-transaction-notebook.json` notebook
 
 1. Wait ~5 minutes and envision a world where software works perfectly while the codespaces environment provisions
