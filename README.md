@@ -1,8 +1,3 @@
-[//]: # (id: multitple-log-transaction)
-[//]: # (summary: Multiple Log Transaction Review)
-[//]: # (author: Kyle Harrington)
-[//]: # (last update: 6/25/2024)
-
 # Reviewing Transactions & Common Data Across Multiple Log Files
 <!-- ------------------------ -->
 ## Overview 
@@ -61,6 +56,7 @@ You can review the status of the log generation and shipping forom the log-gener
 <!-- -------------------------->
 ## SETUP
 
+![For the shell script version of this lab see the shell setup](/shell-script.md)
 
 ### Prerequisites
 
