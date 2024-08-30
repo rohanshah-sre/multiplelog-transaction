@@ -1,1 +1,1 @@
-[ DYNATIME ] - INFO,"transfering to the moon",transactionSpyId007,internalizedTracking#:DYNATRANSID,device04,log.source:/var/log/multilog/processor-04.logtransactionValue: REVENUE,initationtime: INITTIME, "whoa this still processing?!"
+[ DYNATIME ] - INFO,"transfering to the moon",transactionSpyId007,internalizedTracking#:DYNATRANSID,device04,transactionValue: REVENUE,initationtime: INITTIME, "whoa this still processing?!"
