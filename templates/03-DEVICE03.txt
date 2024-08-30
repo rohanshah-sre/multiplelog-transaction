@@ -1,1 +1,1 @@
-[ DYNATIME ] - INFO,"transaction recieved",valid,DYNATRANSID,device03,starttime: INITTIME, "processor numero 3 is totally processing!"
+[ DYNATIME ] - INFO,"transaction recieved",valid,DYNATRANSID,device03,log.source:/var/log/multilog/processor-03.log,starttime: INITTIME, "processor numero 3 is totally processing!"
