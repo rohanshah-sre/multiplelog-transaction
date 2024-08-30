@@ -9,14 +9,14 @@
 
 
 ### What You’ll Learn Today
-In this lab we'll simulate a transaction through multiple logs and review the logs and specific transactions, via transaction IDs, through Dynatrace DQL. This lab will provide a quick setup of a cron job that with generate 6 log files in 3 different formats. This is useful for anyone looking to find commmonality of specfic values across multiple log files.
+In this lab we'll simulate a transaction through multiple logs and review the logs and specific transactions, via transaction IDs, through Dynatrace DQL. This lab contains a prebuilt setup deployable via code spaces which will spin up a kubernetes cluster and deploy a container which will generate 6 log files in 3 different formats. This is useful for anyone looking to find commmonality of specfic values across multiple log files.
 
 ### In this lab we will...
-1. Setup a log simulation shell script
-1. Deploy Dynatrace OneAgent 
-1. Setup an cronjob on a Linux VM
+1. Deploy a k8s cluster in github codespaces
+1. Generate logs and ship them to the Dynatrace logs ingest api
 1. Review the generated log entries in Dynatrace
-1. Learn basic parsing syntax for Dynatrace DQL 
+1. Learn basic parsing syntax for Dynatrace DQL
+1. Learn advanced use cases for leverging DQL to build analytics and reporting
 
 ![such dql, much wow!](img/1.png)
 
@@ -27,8 +27,10 @@ In this lab we'll simulate a transaction through multiple logs and review the lo
 
 ### Technologies We Will Work With Today
 - [Dynatrace SasS Tenant](https://www.dynatrace.com/trial/)
-- [Crontab](https://man7.org/linux/man-pages/man5/crontab.5.html)
-- [Bash Shell](https://en.wikipedia.org/wiki/Bash_(Unix_shell))
+- [Z Shell](https://ohmyz.sh/)
+- [Github Codespaces](https://github.com/features/codespaces)
+- [Kubernetes](https://kubernetes.io/)
+- [Docker](https://www.docker.com/)
 - [JSON](https://www.w3schools.com/js/js_json_syntax.asp)
 - [XML](https://www.w3schools.com/xml/)
 - [GIT](https://git-scm.com/)
@@ -41,75 +43,87 @@ In this lab we'll simulate a transaction through multiple logs and review the lo
 
 
 ### Log Generation
-Within the [github repo](https://github.com/kyledharrington/multiplelog-transaction) we'll leverage the `multi-logs.sh` script. 
+Within this [github repo](https://github.com/kyledharrington/multiplelog-transaction) we'll build a java container from a [dockerfile](https://github.com/kyledharrington/multiplelog-transaction/tree/main/.devcontainer) and deploy it into a kubernetes cluster in the `log-generator` namespace:
 
-When run, this script will generate a few diffent variables: 
+![transaction flow](img/codespaces/terminal.png)
 
-- The path to logs is set to via
-`directory_path="/var/log/multilog"`
+While the container runs it will gernerate log files based on templates in the `/templates` directory to read, append the varibles in those templates and generate a new log line in each of the 6 log files created and POST them to your Dynatrace tenants logs ingest api endpoint.  
 
-    This can be be updated as desired
+You can review the status of the log generation and shipping forom the log-generator container by running: 
 
--  Two specific "transaction IDs", the `dttransid` and the `pmdwid`
 
-    ```
-    dttransid=$(date +%Y%m%d)DYNATRANSACTION$RANDOM
-        example: 20240624DYNATRANSACTION10198
+    kubectl logs -f -n log-generator -l app=log-generator
 
-    pmdwid=$(mktemp -u XXXXXXXXXXXXXXX)
-        example: jG3I5VbKOgENt3F`
-    ```
-With these variables set, the script will then leverage log output templates in the `/templates` directory to read, append the varibles in those templates and generate a new log line in each of the 6 log files created. Each log line is also setting a variable via the `dynatime` variable to generate a timestamp. We will also use the script `sleep` function to mimic latency between our device hops. 
 
-The end result will be 6 logs for our "transaction processors" in the `/var/log/multilog` directory
+![tail logs](img/codespaces/tail.gif)
 
-![logs files](img/3.png)
 
 <!-- -------------------------->
 ## SETUP
 
-###
-[Video Recording for Setup can be view here](https://dynatrace-my.sharepoint.com/:v:/p/kyle_harrington/EaPhCVPUEohHprzGBsk3NQ8BupqPUs9s1NlbmYp75n29HQ?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=eqrnx1)
 
 ### Prerequisites
+
+1. A Github account
+    -  [Github Sign Up Docs](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github)
 1. A active Dynatrace SaaS tenant
     - If you don't have one you can sign up for a free 15 day [Dynatrace Trial](https://www.dynatrace.com/signup/)
-1. A linux based virtual machine 
-    - If you don't have one, GCP offers a $300 trial credit for new users [Google Cloud](https://cloud.google.com/)
-1. [Dynatrace OneAgent Installed on the Linux VM](https://docs.dynatrace.com/docs/setup-and-configuration/dynatrace-oneagent/installation-and-operation/linux/installation/install-oneagent-on-linux)
+1. Two Dynatrace API Access tokens
 
-### Setup the scipt
+### Access token requierements
 
-1. Clone the git repo to your home directory
-    ```shell
-    git clone https://github.com/kyledharrington/multiplelog-transaction.git 
-    ```
-1. Modify your user's contab:
-    ```
-    crontab -e
-    ```
-1. Add the script to your crontab: 
-    ```
-    * * * * * /home/$(whoami)/multiplelog-transaction/multi-logs.sh
-    ```
+1. In your Dynatrace tenant, navigate to the "Access Tokens" app/ page and generate two tokens:
 
-1. Save and quit with:
-    ```
-    :wq!
-    ```
-    ![logs files](img/cron.gif)
+    ![ingest token](img/codespaces/accesstokens.png)
 
 
+1. Logs ingest token with the scopes:
+    - Ingest Logs   
 
-    The `* * * * *` will execute the script every minute. We'll let let the script run for a few minutes to generate data.
+    ![ingest token](img/codespaces/log-ingest.png)
 
-1. upload the `multitple-log-transaction-notebook.json` notebook to you Dynatrace tenant
+1. Operator token with the scopes:
+    - Create activegate tokens
+    - Read entities
+    - Read settings
+    - Write Settings
+    - Access problem and even feed, metrics topology
+    - PaaS Integration - Installer Download
+
+    ![operator tokens](img/codespaces/operator%20token.png)
+
+### Deploying the app via codespaces:
+
+1. Login to your github account. 
+
+1. Create a fork of this repo
+    
+    ![operator tokens](img/codespaces/fork.gif)
+
+1. Once the repo has been forked click on "code" --> "codespaces" --> "..." --> "New with options"
+
+    ![operator tokens](img/codespaces/codespace1.png)
+
+1. Update the values:
+    - DT_URL
+    - DT_OPERATOR_TOKEN
+    - DT_LOG_INGEST_TOKEN
+
+1. Click on "create code space"
+
+    ![operator tokens](img/codespaces/secrets.png)
+
+
+    ![logs files](img/upload.gif)
+
+1
+1. upload the `code-spaces-multitple-log-transaction-notebook.json` notebook to you Dynatrace tenant
     - this file is in the "assets" folder of this repository
     - [Click here](/assets/)
 
 
     ![logs files](img/upload.gif)
 
-We will continue the rest of the lab in the `lab-multitple-log-transaction-notebook.json` notebook
+We will continue the rest of the lab in the `code-spaces-multitple-log-transaction-notebook.json` notebook
 
-** TO DO: DEMO VIDEO ** 
+1. Wait ~5 minutes and envision a world where software works perfectly while the codespaces environment provisions
