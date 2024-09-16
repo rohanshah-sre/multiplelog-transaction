@@ -56,7 +56,7 @@ You can review the status of the log generation and shipping forom the log-gener
 <!-- -------------------------->
 ## SETUP
 
-![For the shell script version of this lab see the shell setup](/shell-script.md)
+[For the shell script version of this lab see the shell setup](/shell-script.md)
 
 ### Prerequisites
 
@@ -78,16 +78,6 @@ You can review the status of the log generation and shipping forom the log-gener
 
     ![ingest token](img/codespaces/log-ingest.png)
 
-1. Operator token with the scopes:
-    - Create activegate tokens
-    - Read entities
-    - Read settings
-    - Write Settings
-    - Access problem and even feed, metrics topology
-    - PaaS Integration - Installer Download
-
-    ![operator tokens](img/codespaces/operator%20token.png)
-
 ### Deploying the app via codespaces:
 
 1. Login to your github account. 
@@ -101,8 +91,8 @@ You can review the status of the log generation and shipping forom the log-gener
     ![operator tokens](img/codespaces/codespace1.png)
 
 1. Update the values:
-    - DT_URL
-    - DT_OPERATOR_TOKEN
+    - DT_URL 
+        `(use the .live url and no trailing slash!!)`
     - DT_LOG_INGEST_TOKEN
 
 1. Click on "create code space"
