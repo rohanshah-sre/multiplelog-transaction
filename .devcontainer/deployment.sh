@@ -14,12 +14,7 @@ kubectl -n log-generator create secret generic dt-details \
 
 kubectl apply -f deployment/LogGenerator.yaml -n log-generator
 
-# Wait for Dynatrace to be ready
-#kubectl -n dynatrace wait --for=condition=Ready pod --all --timeout=10m
-
-# Wait 
-#kubectl  --for=condition=Ready pod --all --timeout=10m
-kubectl -n log-generator log-generator wait --for=jsonpath='{.status.phase}'=Running 
-
 echo "Deployment complete!" 
-echo "you can run kubectl get logs -f -n log-generator log-generator to see logs shipped to your tenant API"
+echo "you can run... 
+echo "kubectl get logs -f -n log-generator log-generator"
+echo ".. to see logs shipped to your tenant API"
