@@ -22,4 +22,4 @@ kubectl apply -f deployment/LogGenerator.yaml -n log-generator
 kubectl -n log-generator log-generator wait --for=jsonpath='{.status.phase}'=Running 
 
 echo "Deployment complete!" 
-echo "you can run `kubectl get logs -f -n log-generator log-generator` to see logs shipped to your tenant API"
+echo "you can run kubectl get logs -f -n log-generator log-generator to see logs shipped to your tenant API"
