@@ -19,7 +19,7 @@ kubectl apply -f deployment/LogGenerator.yaml -n log-generator
 
 # Wait 
 #kubectl  --for=condition=Ready pod --all --timeout=10m
-kubectl -n log-generator wait wait --for=jsonpath='{.status.phase}'=Running pod/log-generator
+kubectl -n log-generator log-generator wait --for=jsonpath='{.status.phase}'=Running 
 
 echo "Deployment complete!" 
 echo "you can run `kubectl get logs -f -n log-generator log-generator` to see logs shipped to your tenant API"
