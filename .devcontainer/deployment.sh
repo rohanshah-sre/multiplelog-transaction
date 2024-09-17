@@ -15,6 +15,6 @@ kubectl -n log-generator create secret generic dt-details \
 kubectl apply -f deployment/LogGenerator.yaml -n log-generator
 
 echo "Deployment complete!" 
-echo "you can run... 
+echo "you can run..." 
 echo "kubectl get logs -f -n log-generator log-generator"
-echo ".. to see logs shipped to your tenant API"
+echo "... to see logs shipped to your tenant API"
