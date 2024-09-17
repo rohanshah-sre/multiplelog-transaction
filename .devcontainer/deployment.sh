@@ -16,5 +16,5 @@ kubectl apply -f deployment/LogGenerator.yaml -n log-generator
 
 echo "Deployment complete!" 
 echo "you can run..." 
-echo "kubectl get logs -f -n log-generator log-generator"
+echo "kubectl logs -f -n log-generator -l  app=log-generator"
 echo "... to see logs shipped to your tenant API"
